@@ -18,12 +18,12 @@
                         <div class="flex items-center justify-between h-16 px-4 sm:px-0">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
-                                    <img class="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
+                                    <img class="w-[100px]" src="./img/logo-removebg-preview.png" alt="logo">
                                 </div>
                                 <div class="hidden md:block">
                                     <div class="ml-10 flex items-baseline space-x-4">
                                         <!-- liens -->
-                                        <a href="./dashboard.php" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
+                                        <a href="./dashboard.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
 
                                         <a href="./squads.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Teams</a>
 
@@ -151,30 +151,6 @@
 
         <main class="-mt-32">
             <div class="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
-                <!--
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
--->
-                <!--
-  This example requires updating your template:
-
-  ```
-  <html class="h-full bg-gray-50">
-  <body class="h-full">
-  ```
--->
                 <div class="min-h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
                     <div class="max-w-md w-full space-y-8">
                         <div>
@@ -210,18 +186,12 @@
 
                             <div class="flex items-center justify-between">
 
-                                <!-- <div class="text-sm">
-                                    <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500"> Forgot your password? </a>
-                                </div> -->
+                                <a href="./login.php" class="text-indigo-600">Login?</a>
                             </div>
 
                             <div>
                                 <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                                        <!-- Heroicon name: solid/lock-closed -->
-                                        <!-- <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" /> -->
-                                        </svg>
                                     </span>
                                     Sign in
                                 </button>

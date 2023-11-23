@@ -18,7 +18,7 @@
                         <div class="flex items-center justify-between h-16 px-4 sm:px-0">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
-                                    <img class="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
+                                    <img class="w-[100px]" src="./img/logo-removebg-preview.png" alt="logo">
                                 </div>
                                 <div class="hidden md:block">
                                     <div class="ml-10 flex items-baseline space-x-4">
@@ -33,10 +33,6 @@
 
                                         <a href="./signup.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Sign Up</a>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="hidden md:block">
-                                <div class="ml-4 flex items-center md:ml-6">
                                 </div>
                             </div>
                             <div class="-mr-2 flex md:hidden">
@@ -80,29 +76,6 @@
                         <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Reports</a>
                     </div>
                     <div class="pt-4 pb-3 border-t border-gray-700">
-                        <div class="flex items-center px-5">
-                            <div class="flex-shrink-0">
-                                <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                            </div>
-                            <div class="ml-3">
-                                <div class="text-base font-medium leading-none text-white">Tom Cook</div>
-                                <div class="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
-                            </div>
-                            <button type="button" class="ml-auto bg-gray-800 flex-shrink-0 p-1 text-gray-400 rounded-full hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                                <span class="sr-only">View notifications</span>
-                                <!-- Heroicon name: outline/bell -->
-                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="mt-3 px-2 space-y-1">
-                            <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Your Profile</a>
-
-                            <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Settings</a>
-
-                            <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Sign out</a>
-                        </div>
                     </div>
                 </div>
             </nav>
@@ -113,9 +86,62 @@
             </header>
         </div>
 
-        <main class="-mt-32">
+        <main class="">
             <div class="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
-                <!-- Replace with your content -->
+                <!-- This example requires Tailwind CSS v2.0+ -->
+                <div class="bg-gray-900">
+                    <div class="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24">
+                        <div class="space-y-12">
+                            <div class="space-y-5 sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
+                                <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">All teams</h2>
+                                <p class="text-xl text-gray-300">This is our teams.</p>
+                            </div>
+                            <ul role="list" class="space-y-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:grid-cols-3 lg:gap-8">
+                                <li class="py-10 px-6 bg-gray-800 text-center rounded-lg xl:px-10 xl:text-left">
+                                    <div class="space-y-6 xl:space-y-10">
+                                    
+                                        <div class="space-y-2 xl:flex xl:items-center xl:justify-between">
+                                            <div class="font-medium text-lg leading-6 space-y-1">
+                                                <h3 class="text-white">Squad1</h3>
+                                                <p class="text-indigo-400">Designers</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="py-10 px-6 bg-gray-800 text-center rounded-lg xl:px-10 xl:text-left">
+                                    <div class="space-y-6 xl:space-y-10">
+                                        
+                                        <div class="space-y-2 xl:flex xl:items-center xl:justify-between">
+                                            <div class="font-medium text-lg leading-6 space-y-1">
+                                                <h3 class="text-white">Squad2</h3>
+                                                <p class="text-indigo-400">Developers</p>
+                                            </div>
+
+                                    
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="py-10 px-6 bg-gray-800 text-center rounded-lg xl:px-10 xl:text-left">
+                                    <div class="space-y-6 xl:space-y-10">
+                                        
+                                        <div class="space-y-2 xl:flex xl:items-center xl:justify-between">
+                                            <div class="font-medium text-lg leading-6 space-y-1">
+                                                <h3 class="text-white">Squad3</h3>
+                                                <p class="text-indigo-400">Analyses</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <!-- More people... -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 <!-- /End replace -->
             </div>
         </main>
