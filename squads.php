@@ -11,7 +11,7 @@
 <body>
 
     <div class="min-h-full">
-        <div class="pb-30">
+        <div class="pb-32">
             <nav class="bg-gray-800">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="border-b border-gray-700">
