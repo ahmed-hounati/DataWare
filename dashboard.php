@@ -200,7 +200,6 @@ require './includes/conn.inc.php';
             </div>
         </div>
     </section>
-    </div>
 
 
 
