@@ -150,7 +150,7 @@ mysqli_free_result($result);
                             }
                             ?>
                         </div>
-                        <button type="submit" name="submit" value="save" class="text-white bg-lime-500 hover:bg-lime-800 focus:ring-4 focus:outline-none focus:ring-lime-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-lime-600 dark:hover:bg-lime-700 dark:focus:ring-lime-800">Submit</button>
+                        <button type="submit" name="submit" value="save" class="text-white bg-indigo-700 hover:bg-lime-800 focus:ring-4 focus:outline-none focus:ring-indigo-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-indigo-700 dark:hover:bg-indigo-700 dark:focus:ring-indigo-700">Submit</button>
                     </form>
                 </div>
             </div>

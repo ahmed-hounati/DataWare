@@ -1,48 +1,40 @@
 <?php
 session_start();
+require './includes/conn.inc.php';
 
-$server = "localhost";
-$nomBD = "DataWare";
-$login = "root";
-$pass = "";
+if (isset($_POST['submit'])) {
+    $equipenom = $_POST['NomEquipe'];
+    $statut = $_POST['Statut'];
 
-$conn = mysqli_connect($server, $login, $pass, $nomBD);
 
-$ID = $_GET['modifierID'];
+    // Assuming $connexion is your database connection object
+    $sql = "INSERT INTO equipes (NomEquipe, Statut, DateCreation) VALUES (?, ?, NOW())";
 
-// Initialize $row
-$row = array();
 
-// Check if form is submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $firstName = $_POST['first_name'];
-    $lastName = $_POST['last_name'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $motdepasse = $_POST['Passdwd'];
+    // Use prepared statement to prevent SQL injection
+    $stmt = mysqli_prepare($conn, $sql);
 
-    // Update database
-    $sql = "UPDATE perssonel SET FirstName='$firstName', LastName='$lastName', Email='$email', Passdwd='$motdepasse', Tel='$phone', role='$role' WHERE Id = '$ID'";
-    $result = mysqli_query($conn, $sql);
+    // Bind parameters
+    mysqli_stmt_bind_param($stmt, "ss", $equipenom, $statut);
+
+
+    // Execute the statement
+    $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-        header("Location: ./dashboard.php");
+        header("Location: ./squads.php");
         exit();
     } else {
-        die(mysqli_error($conn));
+        // Display the error message
+        echo "Error: " . mysqli_error($conn);
     }
+
+    // Close the statement
+    mysqli_stmt_close($stmt);
 }
-
-// Select data
-$select = "SELECT * FROM perssonel WHERE Id = '$ID'";
-$result = mysqli_query($conn, $select);
-$row = mysqli_fetch_array($result);
-
-// Close the result set
-mysqli_free_result($result);
 ?>
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -53,7 +45,7 @@ mysqli_free_result($result);
 <body>
 
     <div class="min-h-full">
-        <div class="">
+        <div class="pb-32">
             <nav class="bg-gray-800">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="border-b border-gray-700">
@@ -120,54 +112,43 @@ mysqli_free_result($result);
         </nav>
     </div>
 
-    <section class="">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                        Modify account
-                    </h1>
-                    <form class="max-w-md mx-auto" method="post">
-                        <div class="relative z-0 w-full mb-5 group">
-                            <input type="text" value="<?php echo $row['FirstName']; ?>" name="first_name" id="first_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none " placeholder="First name" required />
+    <main class="-mt-32">
+        <div class="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
+            <div class="min-h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
+                <div class="max-w-md w-full space-y-8">
+                    <div>
+                        <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow">
+                        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
+                        <p class="mt-2 text-center text-sm text-gray-600">
+                        </p>
+                    </div>
+                    <form class="mt-8 space-y-6" action="" method="POST">
+                        <input type="hidden" name="remember" value="true">
+                        <div class="rounded-md shadow-sm -space-y-px">
+                            <div class="p-2">
+                                <label for="NomEquipe" class="sr-only">First name</label>
+                                <input id="NomEquipe" name="NomEquipe" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="NomEquipe">
+                            </div>
+                            <div class="p-2">
+                                <label for="Statut" class="sr-only">Password</label>
+                                <input id="Statut" name="Statut" type="text" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Statut">
+                            </div>
                         </div>
-                        <div class="relative z-0 w-full mb-5 group">
-                            <input type="text" value="<?php echo $row['LastName']; ?>" name="last_name" id="last_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="Last name" required />
+                        <div>
+                            <button type="submit" name="submit" id="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                                </span>
+                                Add
+                            </button>
                         </div>
-                        <div class="relative z-0 w-full mb-5 group">
-                            <input type="email" value="<?php echo $row['Email']; ?>" name="email" id="email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="Email address" required />
-                        </div>
-                        <div class="relative z-0 w-full mb-5 group">
-                            <input type="tel" value="<?php echo $row['Tel']; ?>" name="phone" id="phone" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="Phone number (123-456-7890)" required />
-                        </div>
-                        <div class="relative z-0 w-full mb-5 group">
-                            <input type="password" value="<?php echo $row['Passdwd']; ?>" name="Passdwd" id="Passdwd" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="Password" required />
-                        </div>
-
-                        <div class="relative z-0 w-full mb-5 group">
-                            <?php
-                            $sql = "SELECT * FROM perssonel";
-                            $result1 = mysqli_query($conn, $sql);
-
-                            // Check if the query was successful
-                            if ($result1) {
-                                while ($row = mysqli_fetch_assoc($result1)) {
-                                }
-                                // Free result set
-                                mysqli_free_result($result1);
-                            } else {
-                                // Handle the error, e.g., display an error message or log the error
-                                echo "Error: " . mysqli_connect_error($conn);
-                            }
-                            ?>
-                        </div>
-                        <button type="submit" name="submit" value="save" class="text-white bg-indigo-700 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-indigo-700 dark:hover:bg-indigo-700 dark:focus:ring-indigo-700">Submit</button>
                     </form>
                 </div>
             </div>
-        </div>
-    </section>
 
+            <!-- /End replace -->
+        </div>
+    </main>
+    </div>
 
 
 
@@ -175,6 +156,5 @@ mysqli_free_result($result);
 
     <script src="./js/script.js"></script>
 </body>
-
 
 </html>

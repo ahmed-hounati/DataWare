@@ -99,8 +99,9 @@ require './includes/conn.inc.php';
     <section class="bg-gray-900">
         <div class="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24">
             <div class="space-y-12">
-                <div class="space-y-5 sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
+                <div class="space-y-5 flex justify-around sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
                     <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">Teams Lists</h2>
+                    <a href="addsquiad.php" class="text-indigo-500 text-xl font-extrabold tracking-tight sm:text-xl">Add Team</a>
                 </div>
                 <ul role="list" class="space-y-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:grid-cols-3 lg:gap-8">
                     <?php
@@ -112,12 +113,12 @@ require './includes/conn.inc.php';
                             <div class="space-y-6 xl:space-y-10">
                                 <div class="space-y-2 xl:flex xl:items-center xl:justify-between">
                                     <div class="font-medium text-lg leading-6 space-y-1">
-                                        <h3 class="text-lime-500">Team ID:
+                                        <h3 class="text-indigo-700">Team ID:
                                             <?php
                                             echo $row['IDEquipe'];
                                             ?>
                                         </h3>
-                                        <h3 class="text-lime-500"> Team name:
+                                        <h3 class="text-indigo-700"> Team name:
                                             <?php
                                             echo $row['NomEquipe'];
                                             ?>
@@ -137,7 +138,7 @@ require './includes/conn.inc.php';
 
                                     <ul role="list" class="flex justify-center space-x-5">
                                         <li>
-                                            <a href="modificationequipe.php?modifierID=<?php echo $row['IDEquipe'] ?>" class="text-gray-400 hover:text-gray-300">
+                                            <a href="modificationequipe.php?modifierID=<?php echo $row['IDEquipe'] ?>" class="text-indigo-700 hover:text-indigo-700">
                                                 <svg class="w-8 h-6" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512">
                                                     <style>
                                                         svg {
@@ -149,7 +150,7 @@ require './includes/conn.inc.php';
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="deleteequipe.php?DeleteID=<?php echo $row['IDEquipe'] ?>" class="text-gray-400 hover:text-gray-300">
+                                            <a href="deleteequipe.php?DeleteID=<?php echo $row['IDEquipe'] ?>" class="text-indigo-700 hover:text-indigo-700">
                                                 <svg class="w-6 h-6 mt-3" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
                                                     <style>
                                                         svg {

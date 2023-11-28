@@ -106,17 +106,17 @@ require './includes/conn.inc.php';
                             <div class="space-y-6 xl:space-y-10">
                                 <div class="space-y-2 xl:flex xl:items-center xl:justify-between">
                                     <div class="font-medium text-lg leading-6 space-y-1">
-                                        <h3 class="text-lime-500">ID:
+                                        <h3 class="text-indigo-700">ID:
                                             <?php
                                             echo $row['Id'];
                                             ?>
                                         </h3>
-                                        <h3 class="text-lime-500"> First name:
+                                        <h3 class="text-indigo-700"> First name:
                                             <?php
                                             echo $row['FirstName'];
                                             ?>
                                         </h3>
-                                        <h3 class="text-lime-500"> Last name:
+                                        <h3 class="text-indigo-700"> Last name:
                                             <?php
                                             echo $row['LastName'];
                                             ?>
@@ -162,7 +162,7 @@ require './includes/conn.inc.php';
 
                                     <ul role="list" class="flex justify-center space-x-5">
                                         <li>
-                                            <a href="modification.php?modifierID=<?php echo $row['Id'] ?>" class="text-gray-400 hover:text-gray-300">
+                                            <a href="modification.php?modifierID=<?php echo $row['Id'] ?>" class="text-indigo-700 hover:text-indigo-700">
                                                 <svg class="w-8 h-6" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512">
                                                     <style>
                                                         svg {
@@ -174,7 +174,7 @@ require './includes/conn.inc.php';
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="delete.php?DeleteID=<?php echo $row['Id'] ?>" class="text-gray-400 hover:text-gray-300">
+                                            <a href="delete.php?DeleteID=<?php echo $row['Id'] ?>" class="text-indigo-700 hover:text-indigo-700">
                                                 <svg class="w-6 h-6 mt-3" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
                                                     <style>
                                                         svg {
