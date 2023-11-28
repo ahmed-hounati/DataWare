@@ -100,7 +100,7 @@ require './includes/conn.inc.php';
         <div class="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24">
             <div class="space-y-12">
                 <div class="space-y-5 sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
-                    <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">Liste des projets</h2>
+                    <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">Teams Lists</h2>
                 </div>
                 <ul role="list" class="space-y-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:grid-cols-3 lg:gap-8">
                     <?php
@@ -137,7 +137,7 @@ require './includes/conn.inc.php';
 
                                     <ul role="list" class="flex justify-center space-x-5">
                                         <li>
-                                            <a href="modification.php?modifierID=<?php echo $row['Id'] ?>" class="text-gray-400 hover:text-gray-300">
+                                            <a href="modificationequipe.php?modifierID=<?php echo $row['IDEquipe'] ?>" class="text-gray-400 hover:text-gray-300">
                                                 <svg class="w-8 h-6" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512">
                                                     <style>
                                                         svg {
@@ -149,7 +149,7 @@ require './includes/conn.inc.php';
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="delete.php?DeleteID=<?php echo $row['Id'] ?>" class="text-gray-400 hover:text-gray-300">
+                                            <a href="deleteequipe.php?DeleteID=<?php echo $row['IDEquipe'] ?>" class="text-gray-400 hover:text-gray-300">
                                                 <svg class="w-6 h-6 mt-3" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
                                                     <style>
                                                         svg {

@@ -94,7 +94,7 @@ require './includes/conn.inc.php';
         <div class="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24">
             <div class="space-y-12">
                 <div class="space-y-5 sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
-                    <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">Liste des projets</h2>
+                    <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">Users Lists</h2>
                 </div>
                 <ul role="list" class="space-y-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:grid-cols-3 lg:gap-8">
                     <?php
