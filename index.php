@@ -34,8 +34,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     // Start a session and store user information
                     $_SESSION['Email'] = $row['Email'];
 
-                    // Redirect to the dashboard or another authorized page
-                    header("Location: dashboard.php");
+                    // Check if 'role' is present in the result row
+                    if (isset($row['role'])) {
+                        $_SESSION['role'] = $row['role'];
+                    } else {
+                        // If 'role' is not present, you might want to set a default role
+                        
+                    }
+
+                    // Redirect to the dashboard based on the user's role
+                    switch ($_SESSION['role']) {
+                        case 'user':
+                            header("Location: user/dashboarduser.php");
+                            break;
+                        case 'product_owner':
+                            header("Location: po/dashboardpo.php");
+                            break;
+                        case 'scrum_master':
+                            header("Location: sm/dashboardsm.php");
+                            break;
+                            // Add more roles if needed
+                    }
                     exit();
                 }
             } else {
@@ -48,12 +67,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
-} 
-else {
-
+} else {
+    // Handle other cases if needed
 }
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

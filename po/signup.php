@@ -1,30 +1,30 @@
 <?php
 session_start();
-require './includes/conn.inc.php';
+require '../includes/conn.inc.php';
 
 if (isset($_POST['submit'])) {
-    $ProjectName = $_POST['ProjectName'];
-    $Discription = $_POST['Discription'];
-    $Datedefini = $_POST['Datedefini'];
-    $IDPO = $_POST['IDPO'];
+    $prenom = $_POST['FirstName'];
+    $nom = $_POST['LastName'];
+    $email = $_POST['Email'];
+    $phone = $_POST['Tel'];
+    $role = $_POST['role'];
+    $motdepasse = $_POST['Passdwd'];
 
 
     // Assuming $connexion is your database connection object
-    $sql = "INSERT INTO projects (ProjectName, Discription, Datedepart, Datedefini, IDPO) VALUES (?, ?, NOW(), ?, ?)";
-
+    $sql = "INSERT INTO perssonel (FirstName, LastName, Email, Tel, role, Passdwd, Statut) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     // Use prepared statement to prevent SQL injection
     $stmt = mysqli_prepare($conn, $sql);
 
     // Bind parameters
-    mysqli_stmt_bind_param($stmt, "ssss", $ProjectName, $Discription, $Datedefini, $IDPO);
-
+    mysqli_stmt_bind_param($stmt, "sssssss", $prenom, $nom, $email, $phone, $role, $motdepasse, $Statut);
 
     // Execute the statement
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
-        header("Location: ./projects.php");
+        header("Location: ../index.php");
         exit();
     } else {
         // Display the error message
@@ -41,6 +41,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -54,14 +55,14 @@ if (isset($_POST['submit'])) {
                         <div class="flex items-center justify-between h-16 px-4 sm:px-0">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
-                                    <img class="w-[100px]" src="./img/logo-removebg-preview.png" alt="logo">
+                                    <img class="w-[100px]" src="../img/logo-removebg-preview.png" alt="logo">
                                 </div>
                                 <div class="hidden md:block">
                                     <div class="ml-10 flex items-baseline space-x-4">
                                         <!-- liens -->
-                                        <a href="./dashboard.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
+                                        <a href="./dashboardpo.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
 
-                                        <a href="./squads.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Teams</a>
+                                        <a href="./squadspo.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Teams</a>
 
                                         <a href="./projects.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
 
@@ -99,15 +100,15 @@ if (isset($_POST['submit'])) {
                 <div class="border-b border-gray-700 md:hidden" id="nav-links">
                     <div class="px-2 py-3 space-y-1 sm:px-3">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="./dashboard.php" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
+                        <a href="./dashboardpo.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
 
-                        <a href="./squads.php" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
+                        <a href="./squadspo.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Teams</a>
 
-                        <a href="./projects.php" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                        <a href="./projects.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
 
-                        <a href="./login.php" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Login</a>
+                        <a href="./login.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</a>
 
-                        <a href="./signup.php" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Sign Up</a>
+                        <a href="./signup.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Sign Up</a>
                     </div>
                 </div>
         </div>
@@ -120,7 +121,7 @@ if (isset($_POST['submit'])) {
                 <div class="max-w-md w-full space-y-8">
                     <div>
                         <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow">
-                        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Add a Team</h2>
+                        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
                         <p class="mt-2 text-center text-sm text-gray-600">
                         </p>
                     </div>
@@ -128,27 +129,46 @@ if (isset($_POST['submit'])) {
                         <input type="hidden" name="remember" value="true">
                         <div class="rounded-md shadow-sm -space-y-px">
                             <div class="p-2">
-                                <label for="ProjectName" class="sr-only">Project name</label>
-                                <input id="ProjectName" name="ProjectName" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Project Name">
+                                <label for="FirstName" class="sr-only">First name</label>
+                                <input id="FirstName" name="FirstName" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="First-name">
                             </div>
                             <div class="p-2">
-                                <label for="Discription" class="sr-only">Description</label>
-                                <input id="Discription" name="Discription" type="text" autocomplete="" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Description">
+                                <label for="Lastname" class="sr-only">Last name</label>
+                                <input id="LastName" name="LastName" type="text" autocomplete="" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Last-name">
                             </div>
                             <div class="p-2">
-                                <label for="Datedefini" class="sr-only">Final Date</label>
-                                <input id="Datedefini" name="Datedefini" type="text" autocomplete="" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="yyyy-mm-dd">
+                                <label for="tel" class="sr-only">Phone-number</label>
+                                <input id="Tel" name="Tel" type="tel" autocomplete="" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Phone-number">
                             </div>
                             <div class="p-2">
-                                <label for="IDPO" class="sr-only">ID Product Owner</label>
-                                <input id="IDPO" name="IDPO" type="text" autocomplete="" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="ID product owner">
+                                <label for="email-address" class="sr-only">Email address</label>
+                                <input id="Email" name="Email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address">
+                            </div>
+                            <div class="p-2">
+                                <label for="role" class="sr-only">Role</label>
+                                <select id="role" name="role" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+                                    <option value="user">User</option>
+                                    <option value="scrum_master">Scrum Master</option>
+                                    <option value="product_owner">Product Owner</option>
+                                </select>
+                            </div>
+
+                            <div class="p-2">
+                                <label for="password" class="sr-only">Password</label>
+                                <input id="Passdwd" name="Passdwd" type="password" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password">
                             </div>
                         </div>
+
+                        <div class="flex items-center justify-between">
+
+                            <a href="../index.php" class="text-indigo-600">Login?</a>
+                        </div>
+
                         <div>
-                            <button type="submit" name="submit" id="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <button type="submit" name="submit" id="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 <span class="absolute left-0 inset-y-0 flex items-center pl-3">
                                 </span>
-                                Add
+                                Sign in
                             </button>
                         </div>
                     </form>

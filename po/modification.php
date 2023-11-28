@@ -15,16 +15,18 @@ $row = array();
 
 // Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $ProjectName = $_POST['ProjectName'];
-    $description = $_POST['Discription'];
-    $datedefini = $_POST['Datedefini'];
+    $firstName = $_POST['first_name'];
+    $lastName = $_POST['last_name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $motdepasse = $_POST['Passdwd'];
 
     // Update database
-    $sql = "UPDATE projects SET ProjectName='$ProjectName', Discription='$description', Datedefini='$datedefini' WHERE IDProject = '$ID'";
+    $sql = "UPDATE perssonel SET FirstName='$firstName', LastName='$lastName', Email='$email', Passdwd='$motdepasse', Tel='$phone', role='$role' WHERE Id = '$ID'";
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
-        header("Location: ./projects.php");
+        header("Location: ./dashboardpo.php");
         exit();
     } else {
         die(mysqli_error($conn));
@@ -32,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Select data
-$select = "SELECT * FROM projects WHERE IDProject = '$ID'";
+$select = "SELECT * FROM perssonel WHERE Id = '$ID'";
 $result = mysqli_query($conn, $select);
 $row = mysqli_fetch_array($result);
 
@@ -58,14 +60,14 @@ mysqli_free_result($result);
                         <div class="flex items-center justify-between h-16 px-4 sm:px-0">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
-                                    <img class="w-[100px]" src="./img/logo-removebg-preview.png" alt="logo">
+                                    <img class="w-[100px]" src="../img/logo-removebg-preview.png" alt="logo">
                                 </div>
                                 <div class="hidden md:block">
                                     <div class="ml-10 flex items-baseline space-x-4">
                                         <!-- liens -->
-                                        <a href="./dashboard.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
+                                        <a href="./dashboardpo.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
 
-                                        <a href="./squads.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Teams</a>
+                                        <a href="./squadspo.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Teams</a>
 
                                         <a href="./projects.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
 
@@ -103,15 +105,15 @@ mysqli_free_result($result);
                 <div class="border-b border-gray-700 md:hidden" id="nav-links">
                     <div class="px-2 py-3 space-y-1 sm:px-3">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="./dashboard.php" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
+                        <a href="./dashboardpo.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
 
-                        <a href="./squads.php" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
+                        <a href="./squadspo.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Teams</a>
 
-                        <a href="./projects.php" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                        <a href="./projects.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
 
-                        <a href="./login.php" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Login</a>
+                        <a href="./login.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</a>
 
-                        <a href="./signup.php" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Sign Up</a>
+                        <a href="./signup.php" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Sign Up</a>
                     </div>
                 </div>
         </div>
@@ -123,29 +125,28 @@ mysqli_free_result($result);
             <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                        Modify Team
+                        Modify account
                     </h1>
                     <form class="max-w-md mx-auto" method="post">
                         <div class="relative z-0 w-full mb-5 group">
-                            <input type="text" value="<?php echo $row['ProjectName']; ?>" name="ProjectName" id="ProjectName" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none " placeholder="ProjectName" required />
+                            <input type="text" value="<?php echo $row['FirstName']; ?>" name="first_name" id="first_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none " placeholder="First name" required />
                         </div>
-                        
                         <div class="relative z-0 w-full mb-5 group">
-                            <input type="text" value="<?php echo $row['Discription']; ?>" name="Discription" id="Discription" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="Description" required />
+                            <input type="text" value="<?php echo $row['LastName']; ?>" name="last_name" id="last_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="Last name" required />
                         </div>
-
                         <div class="relative z-0 w-full mb-5 group">
-                            <input type="text" value="<?php echo $row['Datedefini']; ?>" name="Datedefini" id="Datedefini" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="Final Date : yyyy-mm-dd" required />
+                            <input type="email" value="<?php echo $row['Email']; ?>" name="email" id="email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="Email address" required />
                         </div>
-
                         <div class="relative z-0 w-full mb-5 group">
-                            <input type="text" value="<?php echo $row['IDPO']; ?>" name="IDPO" id="IDPO" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="ID product owner" required />
+                            <input type="tel" value="<?php echo $row['Tel']; ?>" name="phone" id="phone" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="Phone number (123-456-7890)" required />
                         </div>
-
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input type="password" value="<?php echo $row['Passdwd']; ?>" name="Passdwd" id="Passdwd" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="Password" required />
+                        </div>
 
                         <div class="relative z-0 w-full mb-5 group">
                             <?php
-                            $sql = "SELECT * FROM projects";
+                            $sql = "SELECT * FROM perssonel";
                             $result1 = mysqli_query($conn, $sql);
 
                             // Check if the query was successful
@@ -160,7 +161,7 @@ mysqli_free_result($result);
                             }
                             ?>
                         </div>
-                        <button type="submit" name="submit" value="save" class="text-white bg-indigo-700 hover:bg-lime-800 focus:ring-4 focus:outline-none focus:ring-indigo-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-indigo-700 dark:hover:bg-indigo-700 dark:focus:ring-indigo-700">Submit</button>
+                        <button type="submit" name="submit" value="save" class="text-white bg-indigo-700 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-indigo-700 dark:hover:bg-indigo-700 dark:focus:ring-indigo-700">Submit</button>
                     </form>
                 </div>
             </div>

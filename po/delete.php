@@ -13,7 +13,7 @@
         $sql = "DELETE FROM perssonel WHERE Id= '$id'";
         $result = mysqli_query($conn,$sql);
         if ($result) {
-            header("Location: ./dashboard.php");
+            header("Location: ./dashboardpo.php");
             exit();
         }else{
             die(mysqli_connect_error($conn));

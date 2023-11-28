@@ -15,15 +15,16 @@ $row = array();
 
 // Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $EquipeName = $_POST['NomEquipe'];
-    $statut = $_POST['Statut'];
+    $ProjectName = $_POST['ProjectName'];
+    $description = $_POST['Discription'];
+    $datedefini = $_POST['Datedefini'];
 
     // Update database
-    $sql = "UPDATE equipes SET NomEquipe='$EquipeName', Statut='statu' WHERE IDEquipe = '$ID'";
+    $sql = "UPDATE projects SET ProjectName='$ProjectName', Discription='$description', Datedefini='$datedefini' WHERE IDProject = '$ID'";
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
-        header("Location: ./squads.php");
+        header("Location: ./projects.php");
         exit();
     } else {
         die(mysqli_error($conn));
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Select data
-$select = "SELECT * FROM equipes WHERE IDEquipe = '$ID'";
+$select = "SELECT * FROM projects WHERE IDProject = '$ID'";
 $result = mysqli_query($conn, $select);
 $row = mysqli_fetch_array($result);
 
@@ -57,7 +58,7 @@ mysqli_free_result($result);
                         <div class="flex items-center justify-between h-16 px-4 sm:px-0">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
-                                    <img class="w-[100px]" src="./img/logo-removebg-preview.png" alt="logo">
+                                    <img class="w-[100px]" src="../img/logo-removebg-preview.png" alt="logo">
                                 </div>
                                 <div class="hidden md:block">
                                     <div class="ml-10 flex items-baseline space-x-4">
@@ -126,16 +127,25 @@ mysqli_free_result($result);
                     </h1>
                     <form class="max-w-md mx-auto" method="post">
                         <div class="relative z-0 w-full mb-5 group">
-                            <input type="text" value="<?php echo $row['NomEquipe']; ?>" name="NomEquipe" id="NomEquipe" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none " placeholder="EquipeName" required />
-                        </div>
-                        
-                        <div class="relative z-0 w-full mb-5 group">
-                            <input type="text" value="<?php echo $row['Statut']; ?>" name="Statut" id="Statut" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="Statut" required />
+                            <input type="text" value="<?php echo $row['ProjectName']; ?>" name="ProjectName" id="ProjectName" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none " placeholder="ProjectName" required />
                         </div>
 
                         <div class="relative z-0 w-full mb-5 group">
+                            <input type="text" value="<?php echo $row['Discription']; ?>" name="Discription" id="Discription" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="Description" required />
+                        </div>
+
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input type="text" value="<?php echo $row['Datedefini']; ?>" name="Datedefini" id="Datedefini" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="Final Date : yyyy-mm-dd" required />
+                        </div>
+
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input type="text" value="<?php echo $row['IDPO']; ?>" name="IDPO" id="IDPO" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="ID product owner" required />
+                        </div>
+
+
+                        <div class="relative z-0 w-full mb-5 group">
                             <?php
-                            $sql = "SELECT * FROM equipes";
+                            $sql = "SELECT * FROM projects";
                             $result1 = mysqli_query($conn, $sql);
 
                             // Check if the query was successful
