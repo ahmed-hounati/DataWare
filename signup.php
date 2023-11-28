@@ -7,19 +7,18 @@ if (isset($_POST['submit'])) {
     $nom = $_POST['LastName'];
     $email = $_POST['Email'];
     $phone = $_POST['Tel'];
+    $Role = $_POST['role'];
     $motdepasse = $_POST['Passdwd'];
 
 
     // Assuming $connexion is your database connection object
-    $sql = "INSERT INTO perssonel (FirstName, LastName, Email, Tel, Passdwd, Role, Statut) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+    $sql = "INSERT INTO perssonel (FirstName, LastName, Email, Tel, role, Passdwd, Statut) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     // Use prepared statement to prevent SQL injection
     $stmt = mysqli_prepare($conn, $sql);
 
     // Bind parameters
     mysqli_stmt_bind_param($stmt, "sssssss", $prenom, $nom, $email, $phone, $motdepasse, $Role, $Statut);
-
 
     // Execute the statement
     $result = mysqli_stmt_execute($stmt);
@@ -145,6 +144,15 @@ if (isset($_POST['submit'])) {
                                 <label for="email-address" class="sr-only">Email address</label>
                                 <input id="Email" name="Email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address">
                             </div>
+                            <div class="p-2">
+                                <label for="role" class="sr-only">Role</label>
+                                <select id="role" name="role" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+                                    <option value="user">Simple User</option>
+                                    <option value="scrum_master">Scrum Master</option>
+                                    <option value="product_owner">Product Owner</option>
+                                </select>
+                            </div>
+
                             <div class="p-2">
                                 <label for="password" class="sr-only">Password</label>
                                 <input id="Passdwd" name="Passdwd" type="password" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password">

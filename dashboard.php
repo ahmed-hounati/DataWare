@@ -139,7 +139,7 @@ require './includes/conn.inc.php';
                                         </p>
                                         <p class="text-white"> Role:
                                             <?php
-                                            echo $row['Role'];
+                                            echo $row['role'];
                                             ?>
                                         </p>
                                         <p class="text-white"> Team Id:
