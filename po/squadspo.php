@@ -1,6 +1,30 @@
 <?php
 session_start();
 require '../includes/conn.inc.php';
+
+function getTeamMembers($teamName, $conn)
+{
+    $members = array();
+
+    // Replace 'perssonel' with the actual name of your table containing team members
+    $sql = "SELECT FirstName, LastName FROM perssonel WHERE IDTeam = ?";
+
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, 's', $teamName);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $members[] = $row['FirstName'] . ' ' . $row['LastName'];
+    }
+
+    mysqli_free_result($result);
+    mysqli_stmt_close($stmt);
+
+    return $members;
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,6 +126,8 @@ require '../includes/conn.inc.php';
                 <div class="space-y-5 flex justify-around sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
                     <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">Teams Lists</h2>
                     <a href="addsquiad.php" class="text-indigo-500 text-xl font-extrabold tracking-tight sm:text-xl">Add Team</a>
+                    <button onclick="showTeamMembers('TEAM')" class="text-indigo-500 text-xl font-extrabold tracking-tight sm:text-xl">Show Team Members</button>
+
                 </div>
                 <ul role="list" class="space-y-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:grid-cols-3 lg:gap-8">
                     <?php
@@ -139,6 +165,20 @@ require '../includes/conn.inc.php';
 
                                 </div>
                             </div>
+                            <div id="team4Members" style="display: none;" class="text-white">
+                                <?php
+                                // PHP code to fetch and display members of Team4
+                                $teamName = 'this TEAM'; // Change this to the desired team name
+                                $team4Members = getTeamMembers($row['IDEquipe'], $conn);
+
+
+                                if (!empty($team4Members)) {
+                                    echo 'Members of ' . $teamName . ': ' . implode('/ ', $team4Members);
+                                } else {
+                                    echo 'No members found for ' . $teamName;
+                                }
+                                ?>
+                            </div>
                         </li>
                     <?php
                     }
@@ -157,6 +197,16 @@ require '../includes/conn.inc.php';
 
 
     <script src="./js/script.js"></script>
+    <script>
+        function showTeamMembers(teamName) {
+            var teamMembersDiv = document.getElementById('team4Members');
+            if (teamMembersDiv.style.display === 'none') {
+                teamMembersDiv.style.display = 'block';
+            } else {
+                teamMembersDiv.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 
 </html>
