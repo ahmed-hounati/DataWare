@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-
 // Select data
 $select = "SELECT * FROM perssonel WHERE Id = '$ID'";
 $result = mysqli_query($conn, $select);
