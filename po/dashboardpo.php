@@ -163,7 +163,7 @@ require '../includes/conn.inc.php';
                                     <ul role="list" class="flex justify-center space-x-5">
                                         <li>
                                             <a href="modification.php?modifierID=<?php echo $row['Id'] ?>" class="text-indigo-700 hover:text-indigo-700">
-                                                <svg class="w-8 h-6" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512">
+                                                <svg class="w-8 mt-2 h-6" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512">
                                                     <style>
                                                         svg {
                                                             fill: #84cc16

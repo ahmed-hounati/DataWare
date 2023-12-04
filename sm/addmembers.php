@@ -2,48 +2,49 @@
 session_start();
 require '../includes/conn.inc.php';
 
-if (isset($_POST['submit'])) {
-    $equipenom = $_POST['NomEquipe'];
-    $statut = $_POST['Statut'];
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['teamID'], $_POST['userIDs'])) {
+    $teamID = $_POST['teamID'];
+    $userIDs = $_POST['userIDs']; // Assuming an array of user IDs
 
+    if (!empty($userIDs)) {
+        // Use prepared statement to prevent SQL injection
+        $updateQuery = "UPDATE perssonel SET IDTeam = ? WHERE Id IN (" . implode(',', array_fill(0, count($userIDs), '?')) . ")";
+        $stmt = mysqli_prepare($conn, $updateQuery);
 
-    // Assuming $connexion is your database connection object
-    $sql = "INSERT INTO equipes (NomEquipe, Statut, DateCreation) VALUES (?, ?, NOW())";
+        // Check if the prepare was successful
+        if ($stmt) {
+            // Bind the parameters
+            mysqli_stmt_bind_param($stmt, str_repeat('s', count($userIDs) + 1), $teamID, ...$userIDs);
 
+            // Execute the statement
+            mysqli_stmt_execute($stmt);
 
-    // Use prepared statement to prevent SQL injection
-    $stmt = mysqli_prepare($conn, $sql);
-
-    // Bind parameters
-    mysqli_stmt_bind_param($stmt, "ss", $equipenom, $statut);
-
-
-    // Execute the statement
-    $result = mysqli_stmt_execute($stmt);
-
-    if ($result) {
-        header("Location: ./squads.php");
-        exit();
-    } else {
-        // Display the error message
-        echo "Error: " . mysqli_error($conn);
+            // Close the statement
+            mysqli_stmt_close($stmt);
+        } else {
+            // Handle prepare error
+            echo "Error preparing statement: " . mysqli_error($conn);
+        }
     }
-
-    // Close the statement
-    mysqli_stmt_close($stmt);
 }
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add member to team</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+
 </head>
 
 <body>
-
     <div class="min-h-full">
         <div class="pb-32">
             <nav class="bg-gray-800">
@@ -70,8 +71,11 @@ if (isset($_POST['submit'])) {
                             <div class="hidden md:block">
                                 <div class="ml-4 flex items-center md:ml-6">
 
+
                                     <!-- Profile dropdown -->
                                     <div class="ml-3 relative">
+                                        <div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -79,9 +83,19 @@ if (isset($_POST['submit'])) {
                                 <!-- Mobile menu button -->
                                 <button type="button" id="burger-menu" class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
                                     <span class="sr-only">Open main menu</span>
+                                    <!--
+                    Heroicon name: outline/menu
+
+                    Menu open: "hidden", Menu closed: "block"
+                -->
                                     <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                                     </svg>
+                                    <!--
+                    Heroicon name: outline/x
+
+                    Menu open: "block", Menu closed: "hidden"
+                -->
                                     <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
@@ -103,54 +117,66 @@ if (isset($_POST['submit'])) {
 
                         <a href="./login.php" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Login</a>
                     </div>
+
                 </div>
         </div>
         </nav>
     </div>
 
-    <main class="-mt-32">
-        <div class="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
-            <div class="min-h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
-                <div class="max-w-md w-full space-y-8">
-                    <div>
-                        <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow">
-                        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Add Team</h2>
-                        <p class="mt-2 text-center text-sm text-gray-600">
-                        </p>
+    <section class="bg-gray-900">
+        <div class="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24">
+            <div class="space-y-12">
+                <!-- Your existing code... -->
+
+                <!-- Add Members Form -->
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="space-y-4">
+                    <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">Add Members to Team</h2>
+
+                    <!-- Select Team -->
+                    <div class="flex items-center space-x-4">
+                        <label class="text-white">Select Team:</label>
+                        <select name="teamID" class="bg-gray-800 text-white border border-gray-600 rounded-md p-2">
+                            <?php
+                            $teamQuery = "SELECT IDEquipe, NomEquipe FROM equipes";
+                            $teamResult = mysqli_query($conn, $teamQuery);
+                            while ($teamRow = mysqli_fetch_assoc($teamResult)) {
+                                echo "<option value='" . $teamRow['IDEquipe'] . "'>" . $teamRow['NomEquipe'] . "</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
-                    <form class="mt-8 space-y-6" action="" method="POST">
-                        <input type="hidden" name="remember" value="true">
-                        <div class="rounded-md shadow-sm -space-y-px">
-                            <div class="p-2">
-                                <label for="NomEquipe" class="sr-only">First name</label>
-                                <input id="NomEquipe" name="NomEquipe" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="NomEquipe">
-                            </div>
-                            <div class="p-2">
-                                <label for="Statut" class="sr-only">Password</label>
-                                <input id="Statut" name="Statut" type="text" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Statut">
-                            </div>
-                        </div>
-                        <div>
-                            <button type="submit" name="submit" id="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                                </span>
-                                Add
-                            </button>
-                        </div>
-                    </form>
-                </div>
+
+                    <!-- adduser -->
+                    <div class="flex items-center space-x-4">
+                        <label class="text-white">Select User(s):</label>
+                        <select name="userIDs[]" id="selectUsers" multiple class="bg-gray-800 text-white border border-gray-600 rounded-md p-2">
+                            <?php
+                            $usersQuery = "SELECT Id, FirstName, LastName FROM perssonel";
+                            $usersResult = mysqli_query($conn, $usersQuery);
+                            while ($userRow = mysqli_fetch_assoc($usersResult)) {
+                                echo "<option value='" . $userRow['Id'] . "'>" . $userRow['FirstName'] . ' ' . $userRow['LastName'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="bg-indigo-500 text-white px-4 py-2 rounded-md">Add Members</button>
+                </form>
             </div>
-
-            <!-- /End replace -->
         </div>
-    </main>
-    </div>
-
-
-
-
+    </section>
 
     <script src="./js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#selectUsers').select2({
+                placeholder: 'Select users',
+                allowClear: true,
+                closeOnSelect: false,
+            });
+        });
+    </script>
 </body>
 
 </html>

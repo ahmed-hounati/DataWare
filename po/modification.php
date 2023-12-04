@@ -14,11 +14,13 @@ $ID = $_GET['modifierID'];
 $row = array();
 
 // Check if form is submitted
+// Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $firstName = $_POST['first_name'];
     $lastName = $_POST['last_name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
+    $role = $_POST['role']; // Fix the variable name here
     $motdepasse = $_POST['Passdwd'];
 
     // Update database
@@ -32,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die(mysqli_error($conn));
     }
 }
+
 
 // Select data
 $select = "SELECT * FROM perssonel WHERE Id = '$ID'";
@@ -139,6 +142,13 @@ mysqli_free_result($result);
                         </div>
                         <div class="relative z-0 w-full mb-5 group">
                             <input type="tel" value="<?php echo $row['Tel']; ?>" name="phone" id="phone" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="Phone number (123-456-7890)" required />
+                        </div>
+                        <div class="relative z-0 w-full mb-5 group">
+                            <select value="<?php echo $row['role']; ?>" id="role" name="role" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+                                <option value="user">User</option>
+                                <option value="scrum_master">Scrum Master</option>
+                                <option value="product_owner">Product Owner</option>
+                            </select>
                         </div>
                         <div class="relative z-0 w-full mb-5 group">
                             <input type="password" value="<?php echo $row['Passdwd']; ?>" name="Passdwd" id="Passdwd" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-lime-500 focus:outline-none" placeholder="Password" required />

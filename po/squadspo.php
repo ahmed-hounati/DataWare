@@ -125,7 +125,6 @@ function getTeamMembers($teamName, $conn)
             <div class="space-y-12">
                 <div class="space-y-5 flex justify-around sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
                     <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">Teams Lists</h2>
-                    <a href="addsquiad.php" class="text-indigo-500 text-xl font-extrabold tracking-tight sm:text-xl">Add Team</a>
                     <button onclick="showTeamMembers('TEAM')" class="text-indigo-500 text-xl font-extrabold tracking-tight sm:text-xl">Show Team Members</button>
 
                 </div>
@@ -167,7 +166,6 @@ function getTeamMembers($teamName, $conn)
                             </div>
                             <div id="team4Members" style="display: none;" class="text-white">
                                 <?php
-                                // PHP code to fetch and display members of Team4
                                 $teamName = 'this TEAM'; // Change this to the desired team name
                                 $team4Members = getTeamMembers($row['IDEquipe'], $conn);
 
@@ -176,17 +174,15 @@ function getTeamMembers($teamName, $conn)
                                     echo 'Members of ' . $teamName . ': ' . implode('/ ', $team4Members);
                                 } else {
                                     echo 'No members found for ' . $teamName;
-                                }
+                                }41
+                                
                                 ?>
                             </div>
                         </li>
                     <?php
                     }
-
-                    // Free result set
                     mysqli_free_result($result);
                     ?>
-                    <!-- More people... -->
                 </ul>
             </div>
         </div>
