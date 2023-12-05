@@ -8,30 +8,25 @@ if (isset($_POST['submit'])) {
     $Datedefini = $_POST['Datedefini'];
     $IDPO = $_POST['IDPO'];
 
-
-    // Assuming $connexion is your database connection object
     $sql = "INSERT INTO projects (ProjectName, Discription, Datedepart, Datedefini, IDPO) VALUES (?, ?, NOW(), ?, ?)";
 
 
-    // Use prepared statement to prevent SQL injection
     $stmt = mysqli_prepare($conn, $sql);
 
-    // Bind parameters
+
     mysqli_stmt_bind_param($stmt, "ssss", $ProjectName, $Discription, $Datedefini, $IDPO);
 
 
-    // Execute the statement
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
         header("Location: ./projects.php");
         exit();
     } else {
-        // Display the error message
+
         echo "Error: " . mysqli_error($conn);
     }
 
-    // Close the statement
     mysqli_stmt_close($stmt);
 }
 ?>

@@ -1,25 +1,20 @@
 <?php
 session_start();
 
-$server = "localhost";
-$nomBD = "DataWare";
-$login = "root";
-$pass = "";
-
-$conn = mysqli_connect($server, $login, $pass, $nomBD);
+require '../includes/conn.inc.php';
 
 $ID = $_GET['modifierID'];
 
-// Initialize $row
+
 $row = array();
 
-// Check if form is submitted
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ProjectName = $_POST['ProjectName'];
     $description = $_POST['Discription'];
     $datedefini = $_POST['Datedefini'];
 
-    // Update database
+
     $sql = "UPDATE projects SET ProjectName='$ProjectName', Discription='$description', Datedefini='$datedefini' WHERE IDProject = '$ID'";
     $result = mysqli_query($conn, $sql);
 
@@ -31,12 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Select data
 $select = "SELECT * FROM projects WHERE IDProject = '$ID'";
 $result = mysqli_query($conn, $select);
 $row = mysqli_fetch_array($result);
 
-// Close the result set
+
 mysqli_free_result($result);
 ?>
 <!doctype html>

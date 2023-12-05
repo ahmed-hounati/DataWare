@@ -1,26 +1,19 @@
 <?php
 session_start();
 
-$server = "localhost";
-$nomBD = "DataWare";
-$login = "root";
-$pass = "";
-
-$conn = mysqli_connect($server, $login, $pass, $nomBD);
+require '../includes/conn.inc.php';
 
 $ID = $_GET['modifierID'];
 
-// Initialize $row
 $row = array();
 
-// Check if form is submitted
-// Check if form is submitted
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $firstName = $_POST['first_name'];
     $lastName = $_POST['last_name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
-    $role = $_POST['role']; // Fix the variable name here
+    $role = $_POST['role'];
     $motdepasse = $_POST['Passdwd'];
 
     // Update database

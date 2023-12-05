@@ -6,7 +6,7 @@ function getTeamMembers($teamName, $conn)
 {
     $members = array();
 
-    // Replace 'perssonel' with the actual name of your table containing team members
+
     $sql = "SELECT FirstName, LastName FROM perssonel WHERE IDTeam = ?";
 
     $stmt = mysqli_prepare($conn, $sql);
@@ -166,7 +166,7 @@ function getTeamMembers($teamName, $conn)
                             </div>
                             <div id="team4Members" style="display: none;" class="text-white">
                                 <?php
-                                $teamName = 'this TEAM'; // Change this to the desired team name
+                                $teamName = 'this TEAM';
                                 $team4Members = getTeamMembers($row['IDEquipe'], $conn);
 
 
