@@ -119,7 +119,6 @@ require '../includes/conn.inc.php';
                                             <p class="text-white"> Final Date: <?php echo $row['Datedefini']; ?></p>
                                         </div>
                                     </div>
-                                    <!-- Modify and Delete Project links -->
 
                                 </div>
                             <?php
