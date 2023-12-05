@@ -164,7 +164,7 @@ require '../includes/conn.inc.php';
                     // Free result set
                     mysqli_free_result($result);
                     ?>
-                    <!-- More people... -->
+                    
                 </ul>
             </div>
         </div>

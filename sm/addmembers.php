@@ -4,7 +4,7 @@ require '../includes/conn.inc.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['teamID'], $_POST['userIDs'])) {
     $teamID = $_POST['teamID'];
-    $userIDs = $_POST['userIDs']; // Assuming an array of user IDs
+    $userIDs = $_POST['userIDs'];
 
     if (!empty($userIDs)) {
         // Use prepared statement to prevent SQL injection

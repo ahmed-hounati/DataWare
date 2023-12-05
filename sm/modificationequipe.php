@@ -1,24 +1,17 @@
 <?php
 session_start();
 
-$server = "localhost";
-$nomBD = "DataWare";
-$login = "root";
-$pass = "";
-
-$conn = mysqli_connect($server, $login, $pass, $nomBD);
+require '../includes/conn.inc.php';
 
 $ID = $_GET['modifierID'];
 
-// Initialize $row
 $row = array();
 
-// Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $EquipeName = $_POST['NomEquipe'];
     $statut = $_POST['Statut'];
 
-    // Update database
+
     $sql = "UPDATE equipes SET NomEquipe='$EquipeName', Statut='statu' WHERE IDEquipe = '$ID'";
     $result = mysqli_query($conn, $sql);
 
@@ -30,12 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Select data
+
 $select = "SELECT * FROM equipes WHERE IDEquipe = '$ID'";
 $result = mysqli_query($conn, $select);
 $row = mysqli_fetch_array($result);
 
-// Close the result set
+
 mysqli_free_result($result);
 ?>
 <!doctype html>
@@ -134,14 +127,11 @@ mysqli_free_result($result);
                             $sql = "SELECT * FROM equipes";
                             $result1 = mysqli_query($conn, $sql);
 
-                            // Check if the query was successful
                             if ($result1) {
                                 while ($row = mysqli_fetch_assoc($result1)) {
                                 }
-                                // Free result set
                                 mysqli_free_result($result1);
                             } else {
-                                // Handle the error, e.g., display an error message or log the error
                                 echo "Error: " . mysqli_connect_error($conn);
                             }
                             ?>
