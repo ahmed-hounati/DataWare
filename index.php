@@ -6,17 +6,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST['Email'];
     $password = $_POST['Passdwd'];
 
-    // Validate user input (you may want to add more validation)
     if (empty($email) || empty($password)) {
-        // Redirect with an error message or display an error on the login page
         header("Location: index.php?error=emptyfields");
         exit();
     } else {
-        // Query the database to check user credentials
         $sql = "SELECT * FROM perssonel WHERE Email=?;";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            // Redirect with an error message or display an error on the login page
             header("Location: login.php?error=sqlerror");
             exit();
         } else {
@@ -24,25 +20,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             if ($row = mysqli_fetch_assoc($result)) {
-                // Check if the entered password matches the stored hashed password
                 $passwordCheck = $password === $row['Passdwd'] ? true : false;
                 if ($passwordCheck == false) {
-                    // Redirect with an error message or display an error on the login page
                     header("Location: index.php?error=wrongpassword");
                     exit();
                 } elseif ($passwordCheck == true) {
-                    // Start a session and store user information
                     $_SESSION['Email'] = $row['Email'];
 
-                    // Check if 'role' is present in the result row
                     if (isset($row['role'])) {
                         $_SESSION['role'] = $row['role'];
                     } else {
-                        // If 'role' is not present, you might want to set a default role
-
+                        
                     }
-
-                    // Redirect to the dashboard based on the user's role
                     switch ($_SESSION['role']) {
                         case 'user':
                             header("Location: user/dashboarduser.php");
@@ -53,13 +42,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         case 'scrum_master':
                             header("Location: sm/dashboardsm.php");
                             break;
-                            // Add more roles if needed
+                            
                     }
                     exit();
                 }
             } else {
-                // Redirect with an error message or display an error on the login page
-                header("Location: index.php?error=nouser");
+                header("Location: index.php?error=nonuser");
                 exit();
             }
         }
@@ -68,7 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
 } else {
-    // Handle other cases if needed
 }
 ?>
 
@@ -173,8 +160,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         </form>
                     </div>
                 </div>
-
-                <!-- /End replace -->
             </div>
         </main>
     </div>
