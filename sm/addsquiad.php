@@ -134,8 +134,6 @@ if (isset($_POST['submit'])) {
                     </form>
                 </div>
             </div>
-
-            <!-- /End replace -->
         </div>
     </main>
     </div>

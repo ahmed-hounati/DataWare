@@ -126,8 +126,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['teamID'], $_POST['user
     <section class="bg-gray-900">
         <div class="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24">
             <div class="space-y-12">
-                <!-- Your existing code... -->
-
                 <!-- Add Members Form -->
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="space-y-4">
                     <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">Add Members to Team</h2>
